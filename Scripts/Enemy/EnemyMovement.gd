@@ -7,10 +7,10 @@ extends Node2D
 @export var sprite: Sprite2D 
 @export var baseNode: Node2D 
 
-
-var is_moving: bool = false
-var target_tile: Vector2i
-var player_ref: Node2D = null
+var suspicion:float = 0.0
+var isMoving: bool = false
+var targetTile: Vector2i
+var playerRef: Node2D = null
 var playerDetected :bool=false
 
 func _ready():
@@ -21,7 +21,7 @@ func _on_body_entered(body):
 	if body.is_in_group("player"): 
 		playerDetected = true
 		print(body.name)
-		player_ref=body
+		playerRef=body
 		var direction = get_move_direction()
 		#if direction != Vector2.ZERO:
 			#move(direction)
@@ -30,7 +30,7 @@ func _on_body_exited(body):
 	if body.is_in_group("player"):
 		print("player exited")
 		playerDetected = false
-		player_ref=null
+		playerRef=null
 		
 
 
@@ -40,11 +40,11 @@ func is_walkable(tile: Vector2i) -> bool:
 	
 	
 func get_move_direction() -> Vector2:
-	if player_ref == null:
+	if playerRef == null:
 		return Vector2.ZERO  
 
 	var enemy_tile = tileMap.local_to_map(baseNode.global_position)
-	var player_tile = tileMap.local_to_map(player_ref.global_position)
+	var player_tile = tileMap.local_to_map(playerRef.global_position)
 
 	var direction = Vector2.ZERO
 
@@ -61,15 +61,15 @@ func get_move_direction() -> Vector2:
 
 func move(direction: Vector2):
 	var current_tile:Vector2 = tileMap.local_to_map(global_position)
-	var target_tile = current_tile + direction
+	var targetTile = current_tile + direction
 
-	is_moving = true
-	var target_position = tileMap.map_to_local(target_tile)
+	isMoving = true
+	var target_position = tileMap.map_to_local(targetTile)
 
 	var tween = create_tween()
 	tween.tween_property(baseNode, "global_position", target_position, moveSpeed).set_trans(Tween.TRANS_SINE)
 
 	await tween.finished
-	is_moving = false
-	if player_ref!=null:
+	isMoving = false
+	if playerRef!=null:
 		move(get_move_direction())

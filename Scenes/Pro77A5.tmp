@@ -249,13 +249,25 @@ position_smoothing_enabled = true
 [node name="Enemy" parent="." instance=ExtResource("4_c4nui")]
 position = Vector2(56, 8)
 
-[node name="EnemyAI" parent="Enemy" index="3" node_paths=PackedStringArray("tileMap")]
+[node name="EnemyAI" parent="Enemy" index="2" node_paths=PackedStringArray("tileMap")]
 tileMap = NodePath("../../TileMapLayer")
 
-[node name="EnemySuspicion" parent="Enemy" index="4" node_paths=PackedStringArray("gameManager")]
-gameManager = NodePath("../../GameManager")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="APBar2" type="ProgressBar" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -536.0
+offset_top = -408.0
+offset_right = -496.0
+offset_bottom = -208.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "action point"
+show_percentage = false
 
 [node name="APBar" type="ProgressBar" parent="CanvasLayer"]
 anchors_preset = 7
@@ -344,23 +356,10 @@ label_settings = SubResource("LabelSettings_jkopx")
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="TurnLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -544.0
-offset_top = 32.0
-offset_right = -362.0
-offset_bottom = 66.0
-grow_horizontal = 2
-text = "Mode: Posion"
-label_settings = SubResource("LabelSettings_jkopx")
-horizontal_alignment = 1
-vertical_alignment = 2
-
 [node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("5_yvmeo")
 player = NodePath("../Player")
 
 [editable path="Player"]
 [editable path="Enemy"]
+[editable path="Enemy/HitBoxComponent"]

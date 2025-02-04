@@ -4,6 +4,8 @@ class_name ActionUI
 @onready var switchButton = $SwitchButton
 @onready var pourButton = $PourButton
 @onready var interactButton = $InteractButton
+@onready var gameManager: GameManager = $"../../GameManager"
+
 func _ready():
 	switchButton.pressed.connect(_on_poison_pressed)
 	pourButton.pressed.connect(_on_push_pressed)
@@ -17,6 +19,7 @@ func hide_actions():
 
 func _on_poison_pressed():
 	print("Poison action triggered")
+	gameManager.use_ap(1)
 	hide_actions()
 
 func _on_push_pressed():
