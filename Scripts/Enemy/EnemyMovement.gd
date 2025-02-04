@@ -16,6 +16,7 @@ var playerDetected :bool=false
 func _ready():
 	area2d.area_exited.connect(_on_body_exited)
 	area2d.area_entered.connect(_on_body_entered)
+	GameManagerThing.turn_started.connect(_on_turn_started)
 
 func _on_body_entered(body):
 	if body.is_in_group("player"): 
@@ -69,14 +70,18 @@ func move(direction: Vector2):
 	var tween = create_tween()
 	tween.tween_property(baseNode, "global_position", target_position, moveSpeed).set_trans(Tween.TRANS_SINE)
 
-	await tween.finished
+	await tween.tween_callback(GameManagerThing.end_turn)
+	
 	isMoving = false
 	#if playerRef!=null:
 		#move(get_move_direction())
 
 
-func _on__turn_started(current_turn) -> void:
+func _on_turn_started(current_turn) -> void:
 	if current_turn=="NPC":
 		var direction = get_move_direction()
-		if direction != Vector2.ZERO:
-			move(direction)
+		#if direction != Vector2.ZERO:
+		move(direction)
+		#GameManagerThing.end_turn()
+		
+			

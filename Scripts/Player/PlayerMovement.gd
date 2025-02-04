@@ -7,15 +7,16 @@ extends Node2D
 @export var raycast: RayCast2D 
 var isMoving: bool = false
 var targetPosition: Vector2
-@export var gameManager:GameManager
+
 
 
 func _process(delta):
 	handle_input()
 
 func handle_input():
-	#print(ap_manager.current_ap)
-	if isMoving or gameManager.current_ap <= 0:
+	print("%s %s %s" % [isMoving, GameManagerThing.current_ap, GameManagerThing.current_turn])
+
+	if isMoving or GameManagerThing.current_ap <= 0 or GameManagerThing.current_turn!="Player":
 		return 
 	#if character.global_position!=global_position:
 		#return
@@ -28,7 +29,6 @@ func handle_input():
 		direction = Vector2.UP
 	elif Input.is_action_just_pressed("ui_down"):
 		direction = Vector2.DOWN
-		
 	if direction != Vector2.ZERO:
 		move(direction)
 	
@@ -46,7 +46,7 @@ func move(direction:Vector2):
 	
 	if raycast.is_colliding():
 		return
-	if not gameManager.use_ap(1):  # Check if AP is available
+	if not GameManagerThing.use_ap(1):  # Check if AP is available
 		return 
 	
 	var targetPosition: Vector2 = tileMap.map_to_local(targetTile)
@@ -59,7 +59,3 @@ func move(direction:Vector2):
 
 func stopmoving():
 	isMoving = false
-	
-
-	
-	

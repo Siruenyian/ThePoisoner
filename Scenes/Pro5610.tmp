@@ -361,7 +361,7 @@ vertical_alignment = 2
 [node name="Target" type="Node2D" parent="." groups=["interactable"]]
 position = Vector2(-8, 56)
 
-[node name="HitBoxComponent" parent="Target" groups=["interactable"] instance=ExtResource("6_1h2k0")]
+[node name="HitBoxComponent" parent="Target" instance=ExtResource("6_1h2k0")]
 
 [node name="Sprite2D" type="Sprite2D" parent="Target"]
 texture = SubResource("AtlasTexture_4o6py")

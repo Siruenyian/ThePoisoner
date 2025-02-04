@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyevgl3j20iki"]
+[gd_scene load_steps=8 format=3 uid="uid://cyevgl3j20iki"]
 
 [ext_resource type="Texture2D" uid="uid://cjp08kgkomi35" path="res://Assets/Sprites/tilemap_packed.png" id="1_syi2p"]
 [ext_resource type="Script" path="res://Scripts/Enemy/EnemyMovement.gd" id="2_eibrm"]
 [ext_resource type="PackedScene" uid="uid://b3xs7xp6w0miq" path="res://Scenes/Components/HitBoxComponent.tscn" id="2_hiob0"]
 [ext_resource type="Script" path="res://Scripts/Enemy/EnemySuspicion.gd" id="4_iygr1"]
+[ext_resource type="Script" path="res://Scripts/UI/SusBar.gd" id="5_8ixi8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwslc"]
 atlas = ExtResource("1_syi2p")
@@ -36,3 +37,13 @@ baseNode = NodePath("..")
 script = ExtResource("4_iygr1")
 area2d = NodePath("../ViewArea")
 baseNode = NodePath("..")
+
+[node name="Susbar" type="ProgressBar" parent="."]
+offset_left = -21.0
+offset_top = -17.0
+offset_right = 21.0
+offset_bottom = -12.0
+show_percentage = false
+script = ExtResource("5_8ixi8")
+
+[connection signal="suspicion_changed" from="EnemySuspicion" to="Susbar" method="_on_enemy_suspicion_changed"]

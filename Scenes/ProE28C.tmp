@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=4 uid="uid://d18uureu1ii28"]
+[gd_scene load_steps=11 format=4 uid="uid://d18uureu1ii28"]
 
 [ext_resource type="Texture2D" uid="uid://cjp08kgkomi35" path="res://Assets/Sprites/tilemap_packed.png" id="1_57du1"]
 [ext_resource type="PackedScene" uid="uid://dkntt8o48wcnf" path="res://Scenes/Player.tscn" id="2_08n28"]
 [ext_resource type="PackedScene" uid="uid://cyevgl3j20iki" path="res://Scenes/Enemy.tscn" id="4_c4nui"]
 [ext_resource type="Script" path="res://Scripts/UI/ActionUI.gd" id="5_bn5ya"]
+[ext_resource type="Script" path="res://Scripts/Manager/GameManager.gd" id="5_yvmeo"]
 [ext_resource type="PackedScene" uid="uid://b3xs7xp6w0miq" path="res://Scenes/Components/HitBoxComponent.tscn" id="6_1h2k0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gchsb"]
@@ -358,15 +359,21 @@ label_settings = SubResource("LabelSettings_jkopx")
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("5_yvmeo")
+player = NodePath("../Player")
+
 [node name="Target" type="Node2D" parent="." groups=["interactable"]]
 position = Vector2(-8, 56)
 
-[node name="HitBoxComponent" parent="Target" groups=["interactable"] instance=ExtResource("6_1h2k0")]
+[node name="HitBoxComponent" parent="Target" instance=ExtResource("6_1h2k0")]
 
 [node name="Sprite2D" type="Sprite2D" parent="Target"]
 texture = SubResource("AtlasTexture_4o6py")
 
 [connection signal="teamodechanged" from="Player/ActionController" to="CanvasLayer/VBoxContainer" method="_on_teamodechanged"]
+[connection signal="turn_started" from="GameManager" to="Player/PlayerController" method="_on_turn_started"]
+[connection signal="turn_started" from="GameManager" to="Enemy/EnemyAI" method="_on__turn_started"]
 
 [editable path="Player"]
 [editable path="Enemy"]

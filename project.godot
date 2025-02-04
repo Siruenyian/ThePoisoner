@@ -15,6 +15,14 @@ run/main_scene="res://Scenes/Prototype.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManagerThing="*res://Scripts/Manager/GameManagerThing.gd"
+
+[dotnet]
+
+project/assembly_name="Poisoner"
+
 [global_group]
 
 player=""
