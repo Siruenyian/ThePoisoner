@@ -2,7 +2,7 @@ extends Node
 
 class_name APManager  
 
-@export var max_ap: int = 5 
+@export var max_ap: int = 5
 var current_ap: int  
 
 @onready var ap_bar: ProgressBar = $"../CanvasLayer/APBar"

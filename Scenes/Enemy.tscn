@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyevgl3j20iki"]
+
+[ext_resource type="Texture2D" uid="uid://cjp08kgkomi35" path="res://Assets/Sprites/tilemap_packed.png" id="1_syi2p"]
+[ext_resource type="Script" path="res://Scripts/Enemy/EnemyMovement.gd" id="2_eibrm"]
+[ext_resource type="PackedScene" uid="uid://b3xs7xp6w0miq" path="res://Scenes/Components/HitBoxComponent.tscn" id="2_hiob0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwslc"]
+atlas = ExtResource("1_syi2p")
+region = Rect2(352, 48, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txffp"]
+size = Vector2(80, 80)
+
+[node name="Enemy" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_xwslc")
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("2_hiob0")]
+
+[node name="EnemyAI" type="Node2D" parent="." node_paths=PackedStringArray("area2d", "sprite", "baseNode")]
+script = ExtResource("2_eibrm")
+area2d = NodePath("../ViewArea")
+sprite = NodePath("../Sprite2D")
+baseNode = NodePath("..")
+
+[node name="ViewArea" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewArea"]
+shape = SubResource("RectangleShape2D_txffp")
+debug_color = Color(0.949099, 0.146649, 0.438328, 0.42)

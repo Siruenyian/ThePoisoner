@@ -1,0 +1,75 @@
+extends Node2D
+
+@export var moveSpeed: float = 0.3  # Movement speed in seconds
+@export var tileMap: TileMapLayer  # Assign the tilemap in the Inspector
+
+@export var area2d: Area2D 
+@export var sprite: Sprite2D 
+@export var baseNode: Node2D 
+
+
+var is_moving: bool = false
+var target_tile: Vector2i
+var player_ref: Node2D = null
+var playerDetected :bool=false
+
+func _ready():
+	area2d.area_exited.connect(_on_body_exited)
+	area2d.area_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+	if body.is_in_group("player"): 
+		playerDetected = true
+		print(body.name)
+		player_ref=body
+		var direction = get_move_direction()
+		#if direction != Vector2.ZERO:
+			#move(direction)
+
+func _on_body_exited(body):
+	if body.is_in_group("player"):
+		print("player exited")
+		playerDetected = false
+		player_ref=null
+		
+
+
+func is_walkable(tile: Vector2i) -> bool:
+	var tile_data = tileMap.get_cell_tile_data(tile)
+	return tile_data != null  
+	
+	
+func get_move_direction() -> Vector2:
+	if player_ref == null:
+		return Vector2.ZERO  
+
+	var enemy_tile = tileMap.local_to_map(baseNode.global_position)
+	var player_tile = tileMap.local_to_map(player_ref.global_position)
+
+	var direction = Vector2.ZERO
+
+	if enemy_tile.x < player_tile.x:
+		direction = Vector2.RIGHT
+	elif enemy_tile.x > player_tile.x:
+		direction = Vector2.LEFT
+	elif enemy_tile.y < player_tile.y:
+		direction = Vector2.DOWN
+	elif enemy_tile.y > player_tile.y:
+		direction = Vector2.UP
+
+	return direction
+
+func move(direction: Vector2):
+	var current_tile:Vector2 = tileMap.local_to_map(global_position)
+	var target_tile = current_tile + direction
+
+	is_moving = true
+	var target_position = tileMap.map_to_local(target_tile)
+
+	var tween = create_tween()
+	tween.tween_property(baseNode, "global_position", target_position, moveSpeed).set_trans(Tween.TRANS_SINE)
+
+	await tween.finished
+	is_moving = false
+	if player_ref!=null:
+		move(get_move_direction())

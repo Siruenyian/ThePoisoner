@@ -1,18 +1,19 @@
-extends Sprite2D
-
-@export var moveSpeed: float = 1  
-@onready var tileMap: TileMapLayer = $"../TileMapLayer"
-@onready var character= $"Sprite2D"
-var targetPosition: Vector2
+extends Node2D
+#TODO: change this to modular reference
+@export var ap_manager: APManager
+@export var tileMap: TileMapLayer
+@export var character: Sprite2D
+@export var indicator:Sprite2D
+@export var moveSpeed: float = 0.2  
+@export var raycast: RayCast2D 
 var isMoving: bool = false
-@onready var ap_manager: APManager = $"../APManager"
-
+var targetPosition: Vector2
 
 func _process(delta):
 	handle_input()
 
 func handle_input():
-	print(ap_manager.current_ap)
+	#print(ap_manager.current_ap)
 	if isMoving or ap_manager.current_ap <= 0:
 		return 
 	#if character.global_position!=global_position:
@@ -31,8 +32,6 @@ func handle_input():
 		move(direction)
 	
 func move(direction:Vector2):
-	if not ap_manager.use_ap(1):  # Check if AP is available
-		return 
 	var currentTile:Vector2i=tileMap.local_to_map(global_position)
 	var targetTile:Vector2i=Vector2i(
 		currentTile.x+direction.x,
@@ -41,11 +40,19 @@ func move(direction:Vector2):
 	var tileData:TileData=tileMap.get_cell_tile_data(targetTile)
 	#if tileData.get_custom_data("walkable")==false:
 		#return
+	raycast.target_position=direction*16
+	raycast.force_raycast_update()
+	
+	if raycast.is_colliding():
+		return
+	if not ap_manager.use_ap(1):  # Check if AP is available
+		return 
+	
 	var targetPosition: Vector2 = tileMap.map_to_local(targetTile)
-	global_position=tileMap.map_to_local(targetTile)
+	indicator.global_position=tileMap.map_to_local(targetTile)
 	character.global_position=tileMap.map_to_local(currentTile)
 	var tween = create_tween()
-	tween.tween_property(character, "global_position",targetPosition , 0.2).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(character, "global_position",targetPosition , moveSpeed).set_trans(Tween.TRANS_SINE)
 	#await tween.finished
 	await tween.tween_callback(stopmoving)
 

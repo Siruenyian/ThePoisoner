@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://d18uureu1ii28"]
+[gd_scene load_steps=9 format=4 uid="uid://d18uureu1ii28"]
 
 [ext_resource type="Texture2D" uid="uid://cjp08kgkomi35" path="res://Assets/Sprites/tilemap_packed.png" id="1_57du1"]
 [ext_resource type="PackedScene" uid="uid://dkntt8o48wcnf" path="res://Scenes/Player.tscn" id="2_08n28"]
 [ext_resource type="Script" path="res://Scripts/ActionPoints/ap_manager.gd" id="3_et6dt"]
+[ext_resource type="PackedScene" uid="uid://cyevgl3j20iki" path="res://Scenes/Enemy.tscn" id="4_c4nui"]
+[ext_resource type="Script" path="res://Scripts/UI/ActionUI.gd" id="5_bn5ya"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gchsb"]
 texture = ExtResource("1_57du1")
@@ -217,6 +219,9 @@ texture = ExtResource("1_57du1")
 [sub_resource type="TileSet" id="TileSet_3orrr"]
 sources/0 = SubResource("TileSetAtlasSource_gchsb")
 
+[sub_resource type="LabelSettings" id="LabelSettings_jkopx"]
+font_size = 24
+
 [node name="Prototype" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -230,18 +235,115 @@ tile_set = SubResource("TileSet_3orrr")
 [node name="Player" parent="." instance=ExtResource("2_08n28")]
 position = Vector2(8, 8)
 
+[node name="PlayerController" parent="Player" index="2" node_paths=PackedStringArray("ap_manager", "tileMap")]
+ap_manager = NodePath("../../APManager")
+tileMap = NodePath("../../TileMapLayer")
+
+[node name="ActionController" parent="Player" index="4" node_paths=PackedStringArray("actionUI")]
+actionUI = NodePath("../../CanvasLayer/VBoxContainer")
+
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(3, 3)
+zoom = Vector2(4, 4)
 position_smoothing_enabled = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
-
-[node name="APBar" type="ProgressBar" parent="CanvasLayer"]
-offset_left = -172.0
-offset_top = 71.0
-offset_right = 174.0
-offset_bottom = 98.0
 
 [node name="APManager" type="Node2D" parent="."]
 script = ExtResource("3_et6dt")
+max_ap = 100
+
+[node name="Enemy" parent="." instance=ExtResource("4_c4nui")]
+position = Vector2(56, 8)
+
+[node name="EnemyAI" parent="Enemy" index="2" node_paths=PackedStringArray("tileMap")]
+tileMap = NodePath("../../TileMapLayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="APBar" type="ProgressBar" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -392.0
+offset_top = -136.0
+offset_right = 388.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "action point"
+show_percentage = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -184.0
+offset_top = -84.0
+offset_right = -24.0
+offset_bottom = 84.0
+grow_horizontal = 0
+grow_vertical = 2
+tooltip_text = "thing"
+theme_override_constants/separation = 20
+alignment = 1
+script = ExtResource("5_bn5ya")
+
+[node name="SwitchButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "SWITCH MODE"
+
+[node name="PourButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "POUR"
+
+[node name="InteractButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "THROW"
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -168.0
+offset_right = 58.0
+offset_bottom = -145.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "ACTION POINTS"
+label_settings = SubResource("LabelSettings_jkopx")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -91.0
+offset_right = 91.0
+offset_bottom = 34.0
+grow_horizontal = 2
+text = "Mode: Posion"
+label_settings = SubResource("LabelSettings_jkopx")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[editable path="Player"]
+[editable path="Enemy"]
+[editable path="Enemy/HitBoxComponent"]

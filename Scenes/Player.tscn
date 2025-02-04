@@ -2,30 +2,36 @@
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerMovement.gd" id="1_ja5do"]
 [ext_resource type="Texture2D" uid="uid://cjp08kgkomi35" path="res://Assets/Sprites/tilemap_packed.png" id="1_rr4me"]
+[ext_resource type="PackedScene" uid="uid://b3xs7xp6w0miq" path="res://Scenes/Components/HitBoxComponent.tscn" id="3_cwktx"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerAction.gd" id="4_s3c0h"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_umdub"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_acptg"]
 atlas = ExtResource("1_rr4me")
+region = Rect2(224, 112, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h7oro"]
-atlas = SubResource("AtlasTexture_umdub")
-region = Rect2(192, 112, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7xym6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j0il"]
 atlas = ExtResource("1_rr4me")
-region = Rect2(272, 80, 16, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kw1wr"]
-size = Vector2(34.4615, 34.4615)
+region = Rect2(352, 96, 16, 16)
 
 [node name="Player" type="Sprite2D"]
-texture = SubResource("AtlasTexture_h7oro")
+texture = SubResource("AtlasTexture_acptg")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 16)
+collide_with_areas = true
+
+[node name="CharacterSprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_1j0il")
+
+[node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("character", "indicator", "raycast")]
 script = ExtResource("1_ja5do")
+character = NodePath("../CharacterSprite")
+indicator = NodePath("..")
+raycast = NodePath("../RayCast2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_7xym6")
+[node name="HitBoxComponent" parent="." groups=["player"] instance=ExtResource("3_cwktx")]
+visible = false
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-scale = Vector2(0.40625, 0.40625)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("RectangleShape2D_kw1wr")
+[node name="ActionController" type="Node2D" parent="." node_paths=PackedStringArray("raycast")]
+script = ExtResource("4_s3c0h")
+raycast = NodePath("../RayCast2D")
