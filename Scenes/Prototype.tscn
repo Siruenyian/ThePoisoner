@@ -362,5 +362,7 @@ vertical_alignment = 2
 script = ExtResource("5_yvmeo")
 player = NodePath("../Player")
 
+[connection signal="turn_started" from="GameManager" to="Enemy/EnemyAI" method="_on__turn_started"]
+
 [editable path="Player"]
 [editable path="Enemy"]

@@ -65,11 +65,18 @@ func move(direction: Vector2):
 
 	isMoving = true
 	var target_position = tileMap.map_to_local(targetTile)
-
+	baseNode.global_position=target_position
 	var tween = create_tween()
 	tween.tween_property(baseNode, "global_position", target_position, moveSpeed).set_trans(Tween.TRANS_SINE)
 
 	await tween.finished
 	isMoving = false
-	if playerRef!=null:
-		move(get_move_direction())
+	#if playerRef!=null:
+		#move(get_move_direction())
+
+
+func _on__turn_started(current_turn) -> void:
+	if current_turn=="NPC":
+		var direction = get_move_direction()
+		if direction != Vector2.ZERO:
+			move(direction)
