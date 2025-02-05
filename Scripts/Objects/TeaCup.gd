@@ -14,18 +14,19 @@ func _ready() -> void:
 
 func _on_interact(teaType:String):
 	print("this is interact from other ndoe ", teaType)
+	if fluidlevel>=3:
+		return
 	if teaType=="Poison":
 		poisonLevel+=1
 		if poisonLevel>=2:
-			GameManagerThing.end_game()
+			GameManagerThing.end_game("WIN")
 	else:
 		teaLevel+=1
-		print("This table is ok 😭")
+		if teaLevel>=2:
+			print("This table is ok 😭")
+
 	fluidlevel+=1
-	fluidBar.value = float(fluidlevel) / 2 * 100 
+	fluidBar.value = float(fluidlevel) / 3 * 100 
 	
-	
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

@@ -3,7 +3,7 @@ extends Node2D
 signal turn_ended
 signal turn_started(current_turn)
 signal ap_changed(new_ap: int)
-
+signal game_ended(condition:String)
 var current_turn = "Player"
 var max_ap: int = 2
 var current_ap: int  
@@ -19,7 +19,7 @@ func start_turn():
 	turn_started.emit(current_turn)
 	
 func end_turn():
-	#print("Turn Ended!")
+	print("Turn Ended!")
 	turn_ended.emit()
 		
 	await get_tree().create_timer(turnDelay).timeout
@@ -65,6 +65,12 @@ func switch_scene_async(target_scene: String) -> void:
 		print("Error loading scene:", target_scene)
 
 
-func end_game():
+func end_game(gameCondition):
+	restore_ap()
+	current_turn = "Player"
+	end_turn()
+	game_ended.emit(gameCondition)
+	await get_tree().create_timer(5).timeout  
+	get_tree().paused = false
 	switch_scene_async("res://Scenes/prototype_menu.tscn")
 	return

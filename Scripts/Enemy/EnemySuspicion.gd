@@ -12,7 +12,7 @@ extends Node2D
 var suspicion:float = 0.0
 var playerRef: Node2D = null
 var playerDetected :bool=false
-
+var behavior:String=""
 signal suspicion_changed(new_value)
 
 func _ready():
@@ -32,7 +32,7 @@ func _on_body_exited(body):
 		playerRef=null
 
 func _on_turn_started(current_turn):
-	print(current_turn," ini on turn start ya")
+	#print(current_turn," ini on turn start ya")
 	if current_turn == "Player":
 		update_suspicion()
 
@@ -40,7 +40,9 @@ func update_suspicion():
 	print(suspicion)
 	if playerDetected:
 		var aCon:PlayerAction=playerRef.get_node("ActionController")
-		if aCon.teapotMode=="Poison":
+		print(behavior," beahvior in sus")
+#		make it so that we can only
+		if aCon.teapotMode=="Poison"&&(behavior=="DRINK"||behavior=="TALK"):
 			suspicion += suspicion_rate
 	else:
 		suspicion -= suspicion_decay
@@ -50,4 +52,8 @@ func update_suspicion():
 
 	if suspicion >= 100:
 		print("Suspicion Maxed! You going to jail ha")
-		GameManagerThing.end_game()
+		GameManagerThing.end_game("LOSE")
+
+
+func _on_enemy_state_changed(newBehavior):
+	behavior=newBehavior

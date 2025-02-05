@@ -22,10 +22,16 @@ func _ready():
 	
 func update_turn_label(current_turn):
 	print("turn label being updated")
-	#if current_turn!="Player":
-		#ap_bar.hide()
-	#else:
-		#ap_bar.show()
+	if current_turn!="Player":
+		switchButton.disabled=true
+		pourButton.disabled=true
+		interactButton.disabled=true
+		ap_bar.hide()
+	else:
+		switchButton.disabled=false
+		pourButton.disabled=false
+		interactButton.disabled=false
+		ap_bar.show()
 	turnLabel.text=current_turn
 	
 func update_ap_bar(current_ap):
@@ -38,7 +44,7 @@ func hide_actions():
 	visible = false 
 
 func _on_switch_mode_pressed():
-	print("Poison action triggered")
+	print("Switch action triggered")
 	playerAc.switchteamode()
 	GameManagerThing.use_ap(1)
 	hide_actions()
@@ -50,7 +56,7 @@ func _on_pour_pressed():
 	hide_actions()
 
 func _on_interact_pressed():
-	print("Throw interaction triggered")
+	print("interaction triggered")
 	hide_actions()
 
 func _on_teamodechanged(teapotmode):
