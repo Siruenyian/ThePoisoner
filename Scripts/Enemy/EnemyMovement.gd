@@ -21,8 +21,8 @@ func _ready():
 func _on_body_entered(body):
 	if body.is_in_group("player"): 
 		playerDetected = true
-		print(body.name)
-		playerRef=body
+		#print(body.name)
+		playerRef=body.get_parent()
 		var direction = get_move_direction()
 		#if direction != Vector2.ZERO:
 			#move(direction)
@@ -33,8 +33,6 @@ func _on_body_exited(body):
 		playerDetected = false
 		playerRef=null
 		
-
-
 func is_walkable(tile: Vector2i) -> bool:
 	var tile_data = tileMap.get_cell_tile_data(tile)
 	return tile_data != null  
@@ -71,7 +69,7 @@ func move(direction: Vector2):
 	tween.tween_property(baseNode, "global_position", target_position, moveSpeed).set_trans(Tween.TRANS_SINE)
 
 	await tween.tween_callback(GameManagerThing.end_turn)
-	
+	print("ismoving false")
 	isMoving = false
 	#if playerRef!=null:
 		#move(get_move_direction())
@@ -79,8 +77,13 @@ func move(direction: Vector2):
 
 func _on_turn_started(current_turn) -> void:
 	if current_turn=="NPC":
-		var direction = get_move_direction()
+		var direction=Vector2.ZERO
 		#if direction != Vector2.ZERO:
+		if playerDetected:
+			var aCon:PlayerAction=playerRef.get_node("ActionController")
+			print(aCon.teapotMode," "," Kill yourself idk")
+			if aCon.teapotMode=="Poison":
+				direction= get_move_direction()
 		move(direction)
 		#GameManagerThing.end_turn()
 		

@@ -8,13 +8,11 @@ extends Node2D
 var isMoving: bool = false
 var targetPosition: Vector2
 
-
-
 func _process(delta):
 	handle_input()
 
 func handle_input():
-	print("%s %s %s" % [isMoving, GameManagerThing.current_ap, GameManagerThing.current_turn])
+	#print("%s %s %s" % [isMoving, GameManagerThing.current_ap, GameManagerThing.current_turn])
 
 	if isMoving or GameManagerThing.current_ap <= 0 or GameManagerThing.current_turn!="Player":
 		return 

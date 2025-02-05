@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dxk0op1eyxw0p"]
+
+[ext_resource type="FontFile" uid="uid://btrbp20cd1pj2" path="res://Assets/Fonts/rainyhearts.ttf" id="1_rwucv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72v31"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[resource]
+default_font = ExtResource("1_rwucv")
+Button/colors/font_color = Color(0.90732, 0.721672, 0.367138, 1)
+Button/colors/font_focus_color = Color(1, 0.917347, 0.51973, 1)
+Button/colors/font_hover_color = Color(1, 0.917347, 0.51973, 1)
+Button/fonts/font = ExtResource("1_rwucv")
+Button/styles/focus = SubResource("StyleBoxFlat_72v31")
+Label/fonts/font = ExtResource("1_rwucv")

@@ -5,24 +5,33 @@ class_name PlayerAction
 @export var actionUI:ActionUI
 signal teamodechanged(teapotmode:String)
 var teapotMode="Poison"
+var current_interactable: Node = null
+
 func _ready() -> void:
 	pass # Replace with function body.
 
 func _process(delta: float) -> void:
 	if raycast.is_colliding():
-		var collider = raycast.get_collider()
+		var collider:Node2D = raycast.get_collider()
 		if collider and collider.is_in_group("interactable"):
 			actionUI.show_actions()
+			current_interactable = collider.get_parent().get_node("Interactable")
 		else:
 			actionUI.hide_actions()
+			current_interactable = null
+			
 	else:
 		actionUI.hide_actions()
+		current_interactable = null
+		
 
-func attempt_interaction(target):
-	if target and target.is_in_group("interactable"):
-		target.interact()
+func _on_interact_button_pressed():
+	if current_interactable and current_interactable.has_method("_on_interact"):
+		current_interactable._on_interact()  # Call the object's interaction method
 
 func switchteamode():
+	if GameManagerThing.current_ap<=0:
+		return
 	if teapotMode=="Tea":
 		teapotMode="Poison"
 	else:

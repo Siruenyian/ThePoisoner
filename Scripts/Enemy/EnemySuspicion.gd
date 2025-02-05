@@ -18,13 +18,13 @@ signal suspicion_changed(new_value)
 func _ready():
 	area2d.area_exited.connect(_on_body_exited)
 	area2d.area_entered.connect(_on_body_entered)
-	if GameManagerThing:
-		GameManagerThing.turn_started.connect(_on_turn_started)
+	GameManagerThing.turn_started.connect(_on_turn_started)
+	
 
 func _on_body_entered(body):
 	if body.is_in_group("player"): 
 		playerDetected = true
-		playerRef=body
+		playerRef=body.get_parent()
 
 func _on_body_exited(body):
 	if body.is_in_group("player"):
@@ -39,7 +39,9 @@ func _on_turn_started(current_turn):
 func update_suspicion():
 	print(suspicion)
 	if playerDetected:
-		suspicion += suspicion_rate
+		var aCon:PlayerAction=playerRef.get_node("ActionController")
+		if aCon.teapotMode=="Poison":
+			suspicion += suspicion_rate
 	else:
 		suspicion -= suspicion_decay
 
@@ -48,3 +50,4 @@ func update_suspicion():
 
 	if suspicion >= 100:
 		print("Suspicion Maxed! You going to jail ha")
+		GameManagerThing.end_game()

@@ -6,7 +6,6 @@ class_name ActionUI
 @onready var interactButton = $InteractButton
 @onready var modeLabel = $"../ModeLabel"
 @onready var turnLabel = $"../TurnLabel"
-
 @onready var playerAc:PlayerAction=$"../../Player/ActionController"
 @onready var ap_bar = $"../APBar"
 
@@ -23,6 +22,10 @@ func _ready():
 	
 func update_turn_label(current_turn):
 	print("turn label being updated")
+	#if current_turn!="Player":
+		#ap_bar.hide()
+	#else:
+		#ap_bar.show()
 	turnLabel.text=current_turn
 	
 func update_ap_bar(current_ap):
@@ -42,6 +45,8 @@ func _on_switch_mode_pressed():
 
 func _on_pour_pressed():
 	print("Push action triggered")
+	GameManagerThing.use_ap(1)
+	playerAc._on_interact_button_pressed()
 	hide_actions()
 
 func _on_interact_pressed():

@@ -11,7 +11,7 @@ atlas = ExtResource("1_syi2p")
 region = Rect2(352, 48, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_txffp"]
-size = Vector2(80, 80)
+size = Vector2(160, 160)
 
 [node name="Enemy" type="Node2D"]
 
@@ -39,10 +39,10 @@ area2d = NodePath("../ViewArea")
 baseNode = NodePath("..")
 
 [node name="Susbar" type="ProgressBar" parent="."]
-offset_left = -21.0
-offset_top = -17.0
-offset_right = 21.0
-offset_bottom = -12.0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = -19.0
 show_percentage = false
 script = ExtResource("5_8ixi8")
 
