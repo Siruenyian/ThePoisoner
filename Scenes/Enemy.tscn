@@ -46,4 +46,14 @@ offset_bottom = -19.0
 show_percentage = false
 script = ExtResource("5_8ixi8")
 
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -40.0
+offset_right = 24.0
+offset_bottom = -25.0
+theme_override_font_sizes/font_size = 10
+text = "Aware"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="suspicion_changed" from="EnemySuspicion" to="Susbar" method="_on_enemy_suspicion_changed"]

@@ -19,7 +19,7 @@ func start_turn():
 	turn_started.emit(current_turn)
 	
 func end_turn():
-	print("Turn Ended!")
+	#print("Turn Ended!")
 	turn_ended.emit()
 		
 	await get_tree().create_timer(turnDelay).timeout

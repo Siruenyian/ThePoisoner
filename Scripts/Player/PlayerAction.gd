@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 
 func _on_interact_button_pressed():
 	if current_interactable and current_interactable.has_method("_on_interact"):
-		current_interactable._on_interact()  # Call the object's interaction method
+		current_interactable._on_interact(teapotMode)  # Call the object's interaction method
 
 func switchteamode():
 	if GameManagerThing.current_ap<=0:

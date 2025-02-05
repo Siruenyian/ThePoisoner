@@ -74,9 +74,20 @@ func move(direction: Vector2):
 	#if playerRef!=null:
 		#move(get_move_direction())
 
-
+var NPCBehavior = ["Idle", "Poison", "Tea"] 
+var currentBehavior: String=NPCBehavior[0]
 func _on_turn_started(current_turn) -> void:
 	if current_turn=="NPC":
+		currentBehavior=NPCBehavior[randi() % 3 ]
+		
+		match currentBehavior:
+			"Idle":
+				print("NPC is making IDLE")
+			"Poison":
+				print("NPC is making Poison")				
+			"Tea":
+				print("NPC is making tea")
+		print(currentBehavior)
 		var direction=Vector2.ZERO
 		#if direction != Vector2.ZERO:
 		if playerDetected:
@@ -84,7 +95,6 @@ func _on_turn_started(current_turn) -> void:
 			print(aCon.teapotMode," "," Kill yourself idk")
 			if aCon.teapotMode=="Poison":
 				direction= get_move_direction()
-		move(direction)
-		#GameManagerThing.end_turn()
-		
+		GameManagerThing.end_turn()
+		#move(direction)
 			

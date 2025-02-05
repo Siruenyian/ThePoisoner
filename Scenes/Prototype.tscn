@@ -335,7 +335,7 @@ zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
 [node name="Enemy" parent="." instance=ExtResource("4_c4nui")]
-position = Vector2(80, 16)
+position = Vector2(-16, 112)
 
 [node name="EnemyAI" parent="Enemy" index="3" node_paths=PackedStringArray("tileMap")]
 tileMap = NodePath("../../TileMapLayer")
@@ -355,6 +355,40 @@ offset_bottom = -69.0
 grow_horizontal = 2
 grow_vertical = 0
 tooltip_text = "action point"
+show_percentage = false
+
+[node name="TeaBar" type="ProgressBar" parent="CanvasLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -544.0
+offset_top = -360.0
+offset_right = -512.0
+offset_bottom = -77.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "action point"
+fill_mode = 2
+show_percentage = false
+
+[node name="PoisonBar" type="ProgressBar" parent="CanvasLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -480.0
+offset_top = -360.0
+offset_right = -448.0
+offset_bottom = -77.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "action point"
+fill_mode = 2
 show_percentage = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
@@ -456,7 +490,7 @@ texture = SubResource("AtlasTexture_4o6py")
 [node name="Interactable" type="Node2D" parent="Target"]
 script = ExtResource("6_slxof")
 
-[node name="PoisonBar" type="ProgressBar" parent="Target"]
+[node name="FluidBar" type="ProgressBar" parent="Target"]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 32.0
