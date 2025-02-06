@@ -78,9 +78,50 @@ text = "THE POISONER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.5
+offset_top = -11.5
+offset_right = 64.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Here you take the role of an assasin that needs to assasinate a target
+
+Every turn your target will change state. 
+You have an alternating teapot you can use to either poison or give them regular tea.
+
+Poison them as quick as possible and avoid suspicion by timing your change of tea"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MenuControl" type="Node2D" parent="."]
 script = ExtResource("3_j1mou")
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/StartButton" to="MenuControl" method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/HowToButton" to="MenuControl" method="_on_how_to_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ExitButton" to="MenuControl" method="_on_exit_button_pressed"]
+[connection signal="gui_input" from="CanvasLayer/Control/Panel" to="MenuControl" method="_on_howtoscreen_gui_input"]

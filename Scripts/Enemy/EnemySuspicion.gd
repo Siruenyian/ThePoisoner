@@ -5,7 +5,7 @@ extends Node2D
 
 
 
-@export var suspicion_rate: float = 20  # How fast suspicion rises
+@export var suspicion_rate: float = 50  # How fast suspicion rises
 @export var suspicion_decay: float = 5  # How fast it decreases
 
 

@@ -16,7 +16,7 @@ func _ready():
 	interactButton.pressed.connect(_on_interact_pressed)
 	GameManagerThing.ap_changed.connect(update_ap_bar)
 	GameManagerThing.turn_started.connect(update_turn_label)
-	turnLabel.text=GameManagerThing.current_turn
+	turnLabel.text="Turn: "+GameManagerThing.current_turn
 	ap_bar.value=float(GameManagerThing.current_ap) / GameManagerThing.max_ap * 100 
 	
 	
@@ -32,7 +32,7 @@ func update_turn_label(current_turn):
 		pourButton.disabled=false
 		interactButton.disabled=false
 		ap_bar.show()
-	turnLabel.text=current_turn
+	turnLabel.text="Turn: "+current_turn
 	
 func update_ap_bar(current_ap):
 	ap_bar.value = float(current_ap) / GameManagerThing.max_ap * 100 
@@ -42,8 +42,13 @@ func show_actions():
 
 func hide_actions():
 	visible = false 
-
+var lastswitchTurn:int=GameManagerThing.playerturnCount+1
 func _on_switch_mode_pressed():
+	print(GameManagerThing.playerturnCount)
+	print(lastswitchTurn)
+	if (GameManagerThing.playerturnCount-lastswitchTurn)<=1:
+		return
+	lastswitchTurn=GameManagerThing.playerturnCount
 	print("Switch action triggered")
 	playerAc.switchteamode()
 	GameManagerThing.use_ap(1)

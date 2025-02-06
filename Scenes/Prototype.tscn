@@ -344,15 +344,13 @@ tileMap = NodePath("../../TileMapLayer")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="APBar" type="ProgressBar" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -512.0
-offset_top = -72.0
-offset_bottom = -48.0
-grow_horizontal = 2
+offset_left = 32.0
+offset_top = -64.0
+offset_right = 544.0
+offset_bottom = -40.0
 grow_vertical = 0
 tooltip_text = "action point"
 show_percentage = false
@@ -425,16 +423,13 @@ layout_mode = 2
 text = "THROW"
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -512.0
-offset_top = -112.0
-offset_right = -330.0
-offset_bottom = -78.0
-grow_horizontal = 2
+offset_left = 32.0
+offset_top = -104.0
+offset_right = 214.0
+offset_bottom = -70.0
 grow_vertical = 0
 text = "ACTION POINTS"
 label_settings = SubResource("LabelSettings_jkopx")
@@ -457,17 +452,12 @@ horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="TurnLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -544.0
+offset_left = 32.0
 offset_top = 32.0
-offset_right = -362.0
+offset_right = 214.0
 offset_bottom = 66.0
-grow_horizontal = 2
 text = "Mode: Posion"
 label_settings = SubResource("LabelSettings_jkopx")
-horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="Screens" type="Control" parent="CanvasLayer"]

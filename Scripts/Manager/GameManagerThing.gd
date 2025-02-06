@@ -8,13 +8,19 @@ var current_turn = "Player"
 var max_ap: int = 2
 var current_ap: int  
 var turnDelay:float = 1.0
+var turnCount:int=0
+var playerturnCount:int=0
+
 
 func _ready():
 	current_ap = max_ap  
 	start_turn()
 
 func start_turn():
+	if current_turn == "Player":
+		playerturnCount+=1
 	print("Turn Started! It's", current_turn, "turn")
+	turnCount+=1
 	restore_ap()
 	turn_started.emit(current_turn)
 	
@@ -67,10 +73,12 @@ func switch_scene_async(target_scene: String) -> void:
 
 func end_game(gameCondition):
 	restore_ap()
-	current_turn = "Player"
-	end_turn()
+	#current_turn = "Player"
+	#end_turn()
 	game_ended.emit(gameCondition)
 	await get_tree().create_timer(5).timeout  
+	turnCount=0
+	playerturnCount=0
 	get_tree().paused = false
 	switch_scene_async("res://Scenes/prototype_menu.tscn")
 	return

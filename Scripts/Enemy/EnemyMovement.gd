@@ -18,6 +18,16 @@ func _ready():
 	area2d.area_entered.connect(_on_body_entered)
 	GameManagerThing.turn_started.connect(_on_turn_started)
 
+var alpha: float = 0.2
+
+func _draw():
+	var shape:CollisionShape2D = $"../ViewArea/CollisionShape2D"
+	if shape.shape is CircleShape2D:
+		draw_circle(Vector2.ZERO, shape.radius, Color(1, 0, 0, alpha))
+	elif shape.shape is RectangleShape2D:
+		draw_rect(shape.shape.get_rect(), Color(0.5, 0, 0, alpha))
+
+
 func _on_body_entered(body):
 	if body.is_in_group("player"): 
 		playerDetected = true
@@ -75,9 +85,12 @@ func move(direction: Vector2):
 		#move(get_move_direction())
 signal npc_changebehavior(behavior:String)
 var NPCBehavior = ["DISTRACT", "DRINK", "TALK"] 
+var NPCBehaviorPattern=[0,1,0,1,1,2,2,2,0,0,0,1]
+var a=0
 var currentBehavior: String=NPCBehavior[0]
 func _on_turn_started(current_turn) -> void:
 	if current_turn=="NPC":
+		var behaviorh=NPCBehaviorPattern[(a+1)%NPCBehaviorPattern.size()]
 		currentBehavior=NPCBehavior[randi() % 3 ]
 		match currentBehavior:
 			"DISTRACT":

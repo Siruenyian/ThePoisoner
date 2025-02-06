@@ -11,7 +11,7 @@ atlas = ExtResource("1_syi2p")
 region = Rect2(352, 48, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_txffp"]
-size = Vector2(160, 160)
+size = Vector2(208, 208)
 
 [node name="Enemy" type="Node2D"]
 
@@ -58,6 +58,6 @@ text = "Aware"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="npc_changebehavior" from="EnemyAI" to="EnemySuspicion" method="_on_enemy_state_changed"]
 [connection signal="npc_changebehavior" from="EnemyAI" to="EnemyUI" method="_on_enemy_state_changed"]
+[connection signal="npc_changebehavior" from="EnemyAI" to="EnemySuspicion" method="_on_enemy_state_changed"]
 [connection signal="suspicion_changed" from="EnemySuspicion" to="EnemyUI" method="_on_enemy_suspicion_changed"]
