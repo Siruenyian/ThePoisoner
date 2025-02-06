@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ceoogwb7uq2cl"
+path="res://.godot/imported/Unstable Room.mp3-a3cb4033ecedd2c1e043d87255359695.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Unstable Room.mp3"
+dest_files=["res://.godot/imported/Unstable Room.mp3-a3cb4033ecedd2c1e043d87255359695.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

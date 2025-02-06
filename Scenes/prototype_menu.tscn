@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://e20dmgp3qt4o"]
+[gd_scene load_steps=6 format=3 uid="uid://e20dmgp3qt4o"]
 
 [ext_resource type="Texture2D" uid="uid://d3nvu047pcipw" path="res://Assets/Sprites/env_tilemap.png" id="1_kdywm"]
 [ext_resource type="Theme" uid="uid://dxk0op1eyxw0p" path="res://Assets/Themes/UI_Theme.tres" id="2_n38i2"]
 [ext_resource type="Script" path="res://Scripts/UI/MenuControl.gd" id="3_j1mou"]
+[ext_resource type="AudioStream" uid="uid://d4b7ei2hubhcj" path="res://Assets/Audio/BGM/湖面のワルツ.mp3" id="4_tcjia"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7okr1"]
 texture = ExtResource("1_kdywm")
@@ -120,6 +121,12 @@ vertical_alignment = 1
 
 [node name="MenuControl" type="Node2D" parent="."]
 script = ExtResource("3_j1mou")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_tcjia")
+autoplay = true
+bus = &"BGM"
+parameters/looping = true
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/StartButton" to="MenuControl" method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/HowToButton" to="MenuControl" method="_on_how_to_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://d18uureu1ii28"]
+[gd_scene load_steps=16 format=4 uid="uid://d18uureu1ii28"]
 
 [ext_resource type="Texture2D" uid="uid://cjp08kgkomi35" path="res://Assets/Sprites/tilemap_packed.png" id="1_57du1"]
 [ext_resource type="PackedScene" uid="uid://dkntt8o48wcnf" path="res://Scenes/Player.tscn" id="2_08n28"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cyevgl3j20iki" path="res://Scenes/Enemy.tscn" id="4_c4nui"]
 [ext_resource type="Script" path="res://Scripts/UI/ActionUI.gd" id="5_bn5ya"]
 [ext_resource type="Script" path="res://Scripts/UI/ScreenUI.gd" id="5_u3t3i"]
+[ext_resource type="Theme" uid="uid://dxk0op1eyxw0p" path="res://Assets/Themes/UI_Theme.tres" id="5_w3538"]
 [ext_resource type="PackedScene" uid="uid://b3xs7xp6w0miq" path="res://Scenes/Components/HitBoxComponent.tscn" id="6_1h2k0"]
 [ext_resource type="Script" path="res://Scripts/Objects/TeaCup.gd" id="6_slxof"]
+[ext_resource type="AudioStream" uid="uid://ceoogwb7uq2cl" path="res://Assets/Audio/BGM/Unstable Room.mp3" id="9_3q1rx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gchsb"]
 texture = ExtResource("1_57du1")
@@ -353,6 +355,7 @@ offset_right = 544.0
 offset_bottom = -40.0
 grow_vertical = 0
 tooltip_text = "action point"
+theme = ExtResource("5_w3538")
 show_percentage = false
 
 [node name="TeaBar" type="ProgressBar" parent="CanvasLayer"]
@@ -369,6 +372,7 @@ offset_bottom = -77.0
 grow_horizontal = 2
 grow_vertical = 0
 tooltip_text = "action point"
+theme = ExtResource("5_w3538")
 fill_mode = 2
 show_percentage = false
 
@@ -386,6 +390,7 @@ offset_bottom = -77.0
 grow_horizontal = 2
 grow_vertical = 0
 tooltip_text = "action point"
+theme = ExtResource("5_w3538")
 fill_mode = 2
 show_percentage = false
 
@@ -402,6 +407,7 @@ offset_bottom = 84.0
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "thing"
+theme = ExtResource("5_w3538")
 theme_override_constants/separation = 20
 alignment = 1
 script = ExtResource("5_bn5ya")
@@ -431,10 +437,10 @@ offset_top = -104.0
 offset_right = 214.0
 offset_bottom = -70.0
 grow_vertical = 0
+theme = ExtResource("5_w3538")
 text = "ACTION POINTS"
 label_settings = SubResource("LabelSettings_jkopx")
-horizontal_alignment = 1
-vertical_alignment = 2
+vertical_alignment = 1
 
 [node name="ModeLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 3
@@ -442,23 +448,27 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -156.0
-offset_top = -34.0
+offset_left = -192.0
+offset_top = -72.0
+offset_right = -36.0
+offset_bottom = -38.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("5_w3538")
 text = "Mode: Poison"
 label_settings = SubResource("LabelSettings_jkopx")
-horizontal_alignment = 1
-vertical_alignment = 2
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="TurnLabel" type="Label" parent="CanvasLayer"]
 offset_left = 32.0
 offset_top = 32.0
 offset_right = 214.0
 offset_bottom = 66.0
+theme = ExtResource("5_w3538")
 text = "Mode: Posion"
 label_settings = SubResource("LabelSettings_jkopx")
-vertical_alignment = 2
+vertical_alignment = 1
 
 [node name="Screens" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -468,6 +478,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("5_w3538")
 script = ExtResource("5_u3t3i")
 
 [node name="LoseScreen" type="Control" parent="CanvasLayer/Screens"]
@@ -559,6 +570,12 @@ offset_top = -16.0
 offset_right = 32.0
 offset_bottom = -11.0
 show_percentage = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_3q1rx")
+autoplay = true
+bus = &"BGM"
+parameters/looping = true
 
 [connection signal="teamodechanged" from="Player/ActionController" to="CanvasLayer/VBoxContainer" method="_on_teamodechanged"]
 
