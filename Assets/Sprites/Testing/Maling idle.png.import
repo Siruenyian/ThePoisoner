@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clf1dlcgo7u0d"
-path="res://.godot/imported/Chara idle.png-4d82d89a725dbcdbdc182ebc4498f6b5.ctex"
+uid="uid://b2gf86digy3if"
+path="res://.godot/imported/Maling idle.png-b168ac2bf584a89486ef4ce1112bc7f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Chara idle.png"
-dest_files=["res://.godot/imported/Chara idle.png-4d82d89a725dbcdbdc182ebc4498f6b5.ctex"]
+source_file="res://Assets/Sprites/Testing/Maling idle.png"
+dest_files=["res://.godot/imported/Maling idle.png-b168ac2bf584a89486ef4ce1112bc7f6.ctex"]
 
 [params]
 

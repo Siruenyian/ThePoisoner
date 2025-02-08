@@ -25,7 +25,7 @@ func _draw():
 	if shape.shape is CircleShape2D:
 		draw_circle(Vector2.ZERO, shape.radius, Color(1, 0, 0, alpha))
 	elif shape.shape is RectangleShape2D:
-		draw_rect(shape.shape.get_rect(), Color(0.5, 0, 0, alpha))
+		draw_rect(shape.shape.get_rect(), Color(0.949, 0.147, 0.438, 0.42))
 
 
 func _on_body_entered(body):
@@ -85,13 +85,23 @@ func move(direction: Vector2):
 		#move(get_move_direction())
 signal npc_changebehavior(behavior:String)
 var NPCBehavior = ["DISTRACT", "DRINK", "TALK"] 
-var NPCBehaviorPattern=[0,1,0,1,1,2,2,2,0,0,0,1]
+#  and 2 ar alert
+#0 is safe
+# turn 0 abaikan aja gpp, player perlu maju dl
+var NPCBehaviorPattern
 var a=0
 var currentBehavior: String=NPCBehavior[0]
 func _on_turn_started(current_turn) -> void:
 	if current_turn=="NPC":
-		var behaviorh=NPCBehaviorPattern[(a+1)%NPCBehaviorPattern.size()]
-		currentBehavior=NPCBehavior[randi() % 3 ]
+		a+=1
+		NPCBehaviorPattern=GameManagerThing.getBehavior()
+		print(GameManagerThing.level, " is level now")
+		print(NPCBehaviorPattern, " is level now")
+		
+		var behaviorh=NPCBehaviorPattern[(a)%NPCBehaviorPattern.size()]
+		currentBehavior=NPCBehavior[behaviorh]
+		#currentBehavior=NPCBehavior[randi() % 3 ]
+		
 		match currentBehavior:
 			"DISTRACT":
 				print("NPC is making IDLE")

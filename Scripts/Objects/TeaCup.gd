@@ -19,11 +19,21 @@ func _on_interact(teaType:String):
 	if teaType=="Poison":
 		poisonLevel+=1
 		if poisonLevel>=2:
+			if GameManagerThing.is_tutorial_scene():
+				GameManagerThing.istutPlayed=true
+				GameManagerThing.end_tut("WIN")
+				return
 			GameManagerThing.end_game("WIN")
 	else:
 		teaLevel+=1
 		if teaLevel>=2:
+			if GameManagerThing.is_tutorial_scene():
+				GameManagerThing.istutPlayed=false
+				GameManagerThing.end_tut("LOSE")
+				return
 			print("This table is ok 😭")
+			GameManagerThing.end_game("LOSE")
+			
 
 	fluidlevel+=1
 	fluidBar.value = float(fluidlevel) / 3 * 100 

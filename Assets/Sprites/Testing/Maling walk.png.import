@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr7s6yip5qhw6"
-path="res://.godot/imported/Maling walk.png-c4ee6a7f14deed66b767839238dd9f88.ctex"
+uid="uid://6bp3dm50c00x"
+path="res://.godot/imported/Maling walk.png-fc3878f17ed6b6707b22863b4521ae06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Maling walk.png"
-dest_files=["res://.godot/imported/Maling walk.png-c4ee6a7f14deed66b767839238dd9f88.ctex"]
+source_file="res://Assets/Sprites/Testing/Maling walk.png"
+dest_files=["res://.godot/imported/Maling walk.png-fc3878f17ed6b6707b22863b4521ae06.ctex"]
 
 [params]
 

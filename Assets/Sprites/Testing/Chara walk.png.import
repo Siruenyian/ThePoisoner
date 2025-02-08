@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c20c14c1ejkfo"
-path="res://.godot/imported/Chara walk.png-cdfff5922277abba9dd348fe00fc3932.ctex"
+uid="uid://bh76diybti4s8"
+path="res://.godot/imported/Chara walk.png-431e259c2b1db1a6813d400239668909.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Chara walk.png"
-dest_files=["res://.godot/imported/Chara walk.png-cdfff5922277abba9dd348fe00fc3932.ctex"]
+source_file="res://Assets/Sprites/Testing/Chara walk.png"
+dest_files=["res://.godot/imported/Chara walk.png-431e259c2b1db1a6813d400239668909.ctex"]
 
 [params]
 

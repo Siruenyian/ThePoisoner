@@ -1,12 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://e20dmgp3qt4o"]
 
-[ext_resource type="Texture2D" uid="uid://d3nvu047pcipw" path="res://Assets/Sprites/env_tilemap.png" id="1_kdywm"]
+[ext_resource type="Texture2D" uid="uid://di54wec0maig4" path="res://Assets/Sprites/player.png" id="2_k5jgo"]
 [ext_resource type="Theme" uid="uid://dxk0op1eyxw0p" path="res://Assets/Themes/UI_Theme.tres" id="2_n38i2"]
+[ext_resource type="AudioStream" uid="uid://k3ef1cj2hkol" path="res://Assets/Audio/SFX/Sad Town.ogg" id="3_hsi4x"]
 [ext_resource type="Script" path="res://Scripts/UI/MenuControl.gd" id="3_j1mou"]
-[ext_resource type="AudioStream" uid="uid://d4b7ei2hubhcj" path="res://Assets/Audio/BGM/湖面のワルツ.mp3" id="4_tcjia"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7okr1"]
-texture = ExtResource("1_kdywm")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i602n"]
 
 [node name="PrototypeMenu" type="Control"]
 layout_mode = 3
@@ -19,24 +18,22 @@ grow_vertical = 2
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
+modulate = Color(0.25, 0.25, 0.25, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_7okr1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i602n")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -135.0
-offset_top = -335.0
-offset_right = 135.0
-offset_bottom = -109.0
-grow_horizontal = 2
+offset_left = 64.0
+offset_top = -296.0
+offset_right = 334.0
+offset_bottom = -70.0
 grow_vertical = 0
 theme_override_constants/separation = 20
 
@@ -65,16 +62,16 @@ text = "EXIT"
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -396.0
-offset_top = 99.0
-offset_right = 396.0
-offset_bottom = 219.0
+offset_left = -384.0
+offset_top = 64.0
+offset_right = 384.0
+offset_bottom = 192.0
 grow_horizontal = 2
 theme = ExtResource("2_n38i2")
 theme_override_colors/font_shadow_color = Color(0.724026, 0.566064, 0.264401, 1)
 theme_override_constants/shadow_offset_y = 5
 theme_override_constants/outline_size = 0
-theme_override_font_sizes/font_size = 96
+theme_override_font_sizes/font_size = 72
 text = "THE POISONER"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -103,27 +100,57 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.5
-offset_top = -11.5
-offset_right = 64.5
-offset_bottom = 11.5
+offset_left = -446.5
+offset_top = -122.5
+offset_right = 446.5
+offset_bottom = 122.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 20
-text = "Here you take the role of an assasin that needs to assasinate a target
+text = "Here you take the role of an assassin that needs to assasinate a target
 
 Every turn your target will change state. 
-You have an alternating teapot you can use to either poison or give them regular tea.
+\"DISTRACT\" (safe), \"DRINK\" (unsafe), \"TALK\" (unsafe)
+You have an alternating teapot you can use when near te tea glass to either poison or give them regular tea.
 
-Poison them as quick as possible and avoid suspicion by timing your change of tea"
+Poison them as quick as possible and avoid suspicion by careefully timing your change of tea
+while observing behhavior pattrns"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TutorialButton" type="Button" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -136.0
+offset_right = 68.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_n38i2")
+theme_override_font_sizes/font_size = 32
+text = "TUTORIAL"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 800.0
+offset_top = 8.0
+offset_right = 880.0
+offset_bottom = 168.0
+texture = ExtResource("2_k5jgo")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="MenuControl" type="Node2D" parent="."]
 script = ExtResource("3_j1mou")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_tcjia")
+stream = ExtResource("3_hsi4x")
+volume_db = -20.0
 autoplay = true
 bus = &"BGM"
 parameters/looping = true
@@ -132,3 +159,4 @@ parameters/looping = true
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/HowToButton" to="MenuControl" method="_on_how_to_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ExitButton" to="MenuControl" method="_on_exit_button_pressed"]
 [connection signal="gui_input" from="CanvasLayer/Control/Panel" to="MenuControl" method="_on_howtoscreen_gui_input"]
+[connection signal="pressed" from="CanvasLayer/Control/TutorialButton" to="MenuControl" method="_on_tut_button_pressed"]

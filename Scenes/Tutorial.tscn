@@ -1,19 +1,22 @@
-[gd_scene load_steps=16 format=4 uid="uid://d18uureu1ii28"]
+[gd_scene load_steps=19 format=4 uid="uid://coejdbe1y8e0y"]
 
-[ext_resource type="Texture2D" uid="uid://biyav3rta55sw" path="res://Assets/Sprites/tileemap_cgj.png" id="1_cxin0"]
-[ext_resource type="PackedScene" uid="uid://dkntt8o48wcnf" path="res://Scenes/Player.tscn" id="2_08n28"]
-[ext_resource type="PackedScene" uid="uid://cyevgl3j20iki" path="res://Scenes/Enemy.tscn" id="4_c4nui"]
-[ext_resource type="Script" path="res://Scripts/UI/ActionUI.gd" id="5_bn5ya"]
-[ext_resource type="Script" path="res://Scripts/UI/ScreenUI.gd" id="5_u3t3i"]
-[ext_resource type="Theme" uid="uid://dxk0op1eyxw0p" path="res://Assets/Themes/UI_Theme.tres" id="5_w3538"]
-[ext_resource type="PackedScene" uid="uid://b3xs7xp6w0miq" path="res://Scenes/Components/HitBoxComponent.tscn" id="6_1h2k0"]
-[ext_resource type="Script" path="res://Scripts/Objects/TeaCup.gd" id="6_slxof"]
-[ext_resource type="Texture2D" uid="uid://d13yaejsycw6f" path="res://Assets/Sprites/tea.png" id="8_gjsj1"]
-[ext_resource type="AudioStream" uid="uid://ceoogwb7uq2cl" path="res://Assets/Audio/BGM/Unstable Room.mp3" id="9_3q1rx"]
-[ext_resource type="Texture2D" uid="uid://vrbkgoxin2da" path="res://Assets/Sprites/arrowpointer.png" id="9_evvec"]
+[ext_resource type="Texture2D" uid="uid://biyav3rta55sw" path="res://Assets/Sprites/tileemap_cgj.png" id="1_lt4ck"]
+[ext_resource type="PackedScene" uid="uid://dkntt8o48wcnf" path="res://Scenes/Player.tscn" id="2_j2jsx"]
+[ext_resource type="Theme" uid="uid://dxk0op1eyxw0p" path="res://Assets/Themes/UI_Theme.tres" id="3_56gp3"]
+[ext_resource type="Script" path="res://Scripts/UI/ActionUI.gd" id="4_81b3k"]
+[ext_resource type="Script" path="res://Scripts/UI/ScreenUI.gd" id="5_sk317"]
+[ext_resource type="PackedScene" uid="uid://b3xs7xp6w0miq" path="res://Scenes/Components/HitBoxComponent.tscn" id="6_tjmti"]
+[ext_resource type="Texture2D" uid="uid://d13yaejsycw6f" path="res://Assets/Sprites/tea.png" id="7_2j6ud"]
+[ext_resource type="Script" path="res://Scripts/Objects/TeaCup.gd" id="8_vwie8"]
+[ext_resource type="Texture2D" uid="uid://vrbkgoxin2da" path="res://Assets/Sprites/arrowpointer.png" id="9_yu754"]
+[ext_resource type="Texture2D" uid="uid://dimpp1qy5eorl" path="res://Assets/Sprites/enemy.png" id="10_rlt75"]
+[ext_resource type="Script" path="res://Scripts/Enemy/EnemyMovement.gd" id="11_22ggy"]
+[ext_resource type="AudioStream" uid="uid://d4b7ei2hubhcj" path="res://Assets/Audio/BGM/湖面のワルツ.mp3" id="11_qxckn"]
+[ext_resource type="Script" path="res://Scripts/UI/EnemyUI.gd" id="12_b1pii"]
+[ext_resource type="Script" path="res://Scripts/Enemy/EnemySuspicion.gd" id="13_4185p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3r2kq"]
-texture = ExtResource("1_cxin0")
+texture = ExtResource("1_lt4ck")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -135,6 +138,7 @@ texture_region_size = Vector2i(32, 32)
 2:7/0 = 0
 2:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 3:7/0 = 0
+3:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:7/0 = 0
 4:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:7/0 = 0
@@ -168,29 +172,17 @@ sources/2 = SubResource("TileSetAtlasSource_3r2kq")
 [sub_resource type="LabelSettings" id="LabelSettings_jkopx"]
 font_size = 24
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b4u4m"]
-size = Vector2(104, 90)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3831i"]
+size = Vector2(32, 90)
 
-[node name="Prototype" type="Node2D"]
+[node name="Tutorial" type="Node2D"]
 
 [node name="BG" type="TileMapLayer" parent="." groups=["tilemaps"]]
-tile_map_data = PackedByteArray("AAD+/wAAAgAHAAEAAAD+//3/AgABAAAAAAD+//7/AgAFAAAAAAD+////AgAEAAEAAAD+/wEAAgAHAAEAAAD+/wIAAgAHAAEAAAD///3/AgABAAAAAAD///7/AgAGAAAAAAD/////AgAFAAEAAAD//wAAAgAHAAEAAAD//wEAAgAHAAEAAAD//wIAAgAHAAEAAAAAAP3/AgABAAAAAAAAAP7/AgAHAAAAAAAAAP//AgAEAAEAAAAAAAAAAgAHAAEAAAAAAAEAAgAHAAEAAAAAAAIAAgAHAAEAAAABAP7/AgAIAAAAAAABAP//AgAFAAEAAAD8//7/AgADAAAAAAD9//7/AgAEAAAAAAACAP7/AgAJAAAAAAD9////AgAEAAEAAAACAP3/AgACAAAAAAD8//3/AgAAAAAAAAD9//3/AgABAAAAAAABAP3/AgABAAAAAAACAP//AgAAAAIAAAACAAAAAgAJAAAAAAACAAEAAgAAAAIAAAACAAIAAgAJAAAAAAACAAMAAgAJAAAAAAACAAQAAgAAAAIAAAACAAUAAgAJAAAAAAD8////AgABAAEAAAD8/wAAAgABAAEAAAD8/wEAAgABAAEAAAD8/wIAAgABAAEAAAD8/wMAAgABAAEAAAD8/wQAAgABAAEAAAD8/wUAAgABAAEAAAD8/wYAAgABAAEAAAACAAYAAgAAAAIAAAACAAcAAgAAAAIAAAD8/wcAAgAJAAEAAAD9/wAAAgAHAAEAAAABAAAAAgAHAAEAAAABAAEAAgAHAAEAAAD9/wEAAgAHAAEAAAD9/wIAAgAHAAEAAAABAAIAAgAHAAEAAAABAAMAAgAAAAEAAAAAAAMAAgAAAAEAAAD+/wMAAgAAAAEAAAD//wMAAgAAAAEAAAD9/wMAAgAAAAEAAAD9/wQAAgAGAAEAAAD+/wQAAgAGAAEAAAAAAAQAAgAGAAEAAAABAAQAAgAGAAEAAAD//wQAAgAGAAEAAAD9/wUAAgAGAAEAAAD+/wUAAgAGAAEAAAD//wUAAgAGAAEAAAAAAAUAAgAGAAEAAAABAAUAAgAGAAEAAAABAAYAAgAGAAEAAAAAAAYAAgAGAAEAAAD//wYAAgAGAAEAAAD+/wYAAgAGAAEAAAD9/wYAAgAGAAEAAAD9/wcAAgAGAAEAAAD+/wcAAgAGAAEAAAD//wcAAgAGAAEAAAAAAAcAAgAGAAEAAAABAAcAAgAGAAEAAAABAAgAAgAGAAEAAAAAAAgAAgAGAAEAAAD//wgAAgAGAAEAAAD+/wgAAgAGAAEAAAD9/wgAAgAGAAEAAAD8/wgAAgABAAEAAAACAAgAAgAAAAIAAAA=")
+tile_map_data = PackedByteArray("AAD+/wAAAgABAAEAAAD+//7/AgADAAAAAAD+////AgABAAEAAAD+/wEAAgABAAEAAAD+/wIAAgABAAEAAAD///3/AgABAAAAAAD///7/AgAGAAAAAAD/////AgAFAAEAAAD//wAAAgAHAAEAAAD//wEAAgAHAAEAAAD//wIAAgAHAAEAAAAAAP3/AgABAAAAAAAAAP7/AgAHAAAAAAAAAP//AgAEAAEAAAAAAAAAAgAHAAEAAAAAAAEAAgAHAAEAAAAAAAIAAgAHAAEAAAABAP7/AgAIAAAAAAABAP//AgAFAAEAAAACAP7/AgAJAAAAAAACAP3/AgACAAAAAAABAP3/AgABAAAAAAACAP//AgAAAAIAAAACAAAAAgAJAAAAAAACAAEAAgAAAAIAAAACAAIAAgAJAAAAAAACAAMAAgAJAAAAAAACAAQAAgAAAAIAAAACAAUAAgAJAAAAAAABAAAAAgAHAAEAAAABAAEAAgAHAAEAAAABAAIAAgAHAAEAAAABAAMAAgAAAAEAAAAAAAMAAgAAAAEAAAD+/wMAAgABAAEAAAD//wMAAgAAAAEAAAD+/wQAAgABAAEAAAAAAAQAAgAGAAEAAAABAAQAAgAGAAEAAAD//wQAAgAGAAEAAAD+/wUAAgABAAEAAAD//wUAAgAGAAEAAAAAAAUAAgAGAAEAAAABAAUAAgAGAAEAAAD+//3/AgAAAAAAAAA=")
 tile_set = SubResource("TileSet_3orrr")
 
-[node name="Back" type="TileMapLayer" parent="." groups=["tilemaps"]]
-tile_map_data = PackedByteArray("AAD9////AgABAAUAAAD9/wAAAgAFAAUAAAD9/wEAAgAGAAUAAAD+/wEAAgAHAAUAAAAAAP7/AgAJAAQAAAD///7/AgAIAAQAAAABAP7/AgAAAAUAAAD+////AgACAAUAAAAAAP//AgADAAUAAAABAP//AgAEAAUAAAD//wYAAgAHAAcAAAD9//7/AgAGAAQAAAD+//7/AgAHAAQAAAA=")
-tile_set = SubResource("TileSet_3orrr")
-
-[node name="Seat" type="TileMapLayer" parent="." groups=["tilemaps"]]
-tile_map_data = PackedByteArray("AAD//wYAAgAEAAQAAAD+/wQAAgAIAAMAAAD+/wUAAgABAAQAAAD+/wMAAgAFAAMAAAD//wUAAgACAAQAAAABAAYAAgAFAAQAAAABAAUAAgADAAQAAAABAAQAAgAJAAMAAAABAAMAAgAGAAMAAAA=")
-tile_set = SubResource("TileSet_3orrr")
-
-[node name="Interactables" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD+//7/AgAJAAcAAAD+////AgAAAAgAAAD/////AgABAAgAAAABAAAAAgADAAgAAAD9/wEAAgAEAAgAAAD9/wAAAgACAAgAAAD+/wUAAgAFAAgAAAD//wUAAgADAAcAAAD//wYAAgAHAAcAAAA=")
-tile_set = SubResource("TileSet_3orrr")
-
-[node name="Player" parent="." instance=ExtResource("2_08n28")]
-position = Vector2(-16, 16)
+[node name="Player" parent="." instance=ExtResource("2_j2jsx")]
+position = Vector2(16, 112)
 
 [node name="PlayerController" parent="Player" index="2" node_paths=PackedStringArray("tileMap")]
 tileMap = NodePath("../../BG")
@@ -206,6 +198,23 @@ drag_vertical_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="SkipButton" type="Button" parent="CanvasLayer"]
+custom_minimum_size = Vector2(30, 60)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -544.0
+offset_top = -176.0
+offset_right = -435.0
+offset_bottom = -116.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_56gp3")
+theme_override_font_sizes/font_size = 16
+text = "SKIP TUTORIAL"
+
 [node name="APBar" type="ProgressBar" parent="CanvasLayer"]
 anchors_preset = 2
 anchor_top = 1.0
@@ -216,7 +225,7 @@ offset_right = 544.0
 offset_bottom = -40.0
 grow_vertical = 0
 tooltip_text = "action point"
-theme = ExtResource("5_w3538")
+theme = ExtResource("3_56gp3")
 show_percentage = false
 
 [node name="TeaBar" type="ProgressBar" parent="CanvasLayer"]
@@ -233,7 +242,7 @@ offset_bottom = -77.0
 grow_horizontal = 2
 grow_vertical = 0
 tooltip_text = "action point"
-theme = ExtResource("5_w3538")
+theme = ExtResource("3_56gp3")
 fill_mode = 2
 show_percentage = false
 
@@ -251,7 +260,7 @@ offset_bottom = -77.0
 grow_horizontal = 2
 grow_vertical = 0
 tooltip_text = "action point"
-theme = ExtResource("5_w3538")
+theme = ExtResource("3_56gp3")
 fill_mode = 2
 show_percentage = false
 
@@ -268,10 +277,10 @@ offset_bottom = 84.0
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "thing"
-theme = ExtResource("5_w3538")
+theme = ExtResource("3_56gp3")
 theme_override_constants/separation = 20
 alignment = 1
-script = ExtResource("5_bn5ya")
+script = ExtResource("4_81b3k")
 
 [node name="SwitchButton" type="Button" parent="CanvasLayer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 100)
@@ -298,7 +307,7 @@ offset_top = -104.0
 offset_right = 214.0
 offset_bottom = -70.0
 grow_vertical = 0
-theme = ExtResource("5_w3538")
+theme = ExtResource("3_56gp3")
 text = "ACTION POINTS"
 label_settings = SubResource("LabelSettings_jkopx")
 vertical_alignment = 1
@@ -315,7 +324,7 @@ offset_right = -36.0
 offset_bottom = -38.0
 grow_horizontal = 0
 grow_vertical = 0
-theme = ExtResource("5_w3538")
+theme = ExtResource("3_56gp3")
 text = "Mode: Poison"
 label_settings = SubResource("LabelSettings_jkopx")
 horizontal_alignment = 2
@@ -330,7 +339,7 @@ offset_top = 32.0
 offset_right = 91.0
 offset_bottom = 66.0
 grow_horizontal = 2
-theme = ExtResource("5_w3538")
+theme = ExtResource("3_56gp3")
 text = "Turn"
 label_settings = SubResource("LabelSettings_jkopx")
 horizontal_alignment = 1
@@ -341,9 +350,20 @@ offset_left = 32.0
 offset_top = 32.0
 offset_right = 214.0
 offset_bottom = 66.0
-theme = ExtResource("5_w3538")
+theme = ExtResource("3_56gp3")
 text = "Mode: Posion"
 label_settings = SubResource("LabelSettings_jkopx")
+vertical_alignment = 1
+
+[node name="TutorialLabel" type="Label" parent="CanvasLayer"]
+offset_left = 400.0
+offset_top = 64.0
+offset_right = 776.0
+offset_bottom = 94.0
+theme = ExtResource("3_56gp3")
+theme_override_font_sizes/font_size = 32
+text = "Objective: Fill cup with poison"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Screens" type="Control" parent="CanvasLayer"]
@@ -354,8 +374,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = ExtResource("5_w3538")
-script = ExtResource("5_u3t3i")
+theme = ExtResource("3_56gp3")
+script = ExtResource("5_sk317")
 
 [node name="LoseScreen" type="Control" parent="CanvasLayer/Screens"]
 visible = false
@@ -388,7 +408,7 @@ offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 64
-text = "GAME OVER"
+text = "OH NO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -406,7 +426,9 @@ offset_bottom = 116.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 32
-text = "It's over, you failed to poison the target"
+text = "You didnt make it..
+Do not worry, you can always try again!
+I believe in you, player"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -441,7 +463,7 @@ offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 64
-text = "YOU WIN"
+text = "TUTORIAL CLEAR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -459,37 +481,27 @@ offset_bottom = 116.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 32
-text = "You did it, the target is poisoned"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TutorialLabel2" type="Label" parent="CanvasLayer"]
-offset_left = 400.0
-offset_top = 64.0
-offset_right = 750.0
-offset_bottom = 94.0
-theme = ExtResource("5_w3538")
-theme_override_font_sizes/font_size = 32
-text = "Objective: Fill cup with poison"
+text = "You did it, the target is poisoned
+I knew you could do it!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Front" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD9/wMAAgAEAAYAAAD+/wMAAgAFAAYAAAD9/wIAAgAAAAYAAAD+/wIAAgABAAYAAAAAAAMAAgAGAAYAAAABAAMAAgAHAAYAAAAAAAIAAgACAAYAAAABAAIAAgADAAYAAAAAAAEAAgAIAAUAAAABAAEAAgAJAAUAAAABAAQAAgAAAAcAAAABAAUAAgAEAAcAAAABAAYAAgAIAAcAAAD+////AgACAAUAAAD9/wUAAgABAAcAAAD9/wQAAgAIAAYAAAD+//7/AgAHAAQAAAD9/wYAAgAFAAcAAAD+/wYAAgAGAAcAAAD+/wUAAgACAAcAAAA=")
+tile_map_data = PackedByteArray("AAD//wUAAgAAAAMAAAD//wQAAgADAAIAAAAAAAUAAgAAAAMAAAABAAUAAgAAAAMAAAABAAQAAgAEAAIAAAAAAAQAAgAEAAIAAAA=")
 tile_set = SubResource("TileSet_3orrr")
 
 [node name="Target" type="Node2D" parent="."]
-position = Vector2(-24, 168)
+position = Vector2(40, -24)
 
-[node name="HitBoxComponent" parent="Target" groups=["interactable"] instance=ExtResource("6_1h2k0")]
+[node name="HitBoxComponent" parent="Target" groups=["interactable"] instance=ExtResource("6_tjmti")]
 position = Vector2(8, 8)
 
 [node name="Sprite2D" type="Sprite2D" parent="Target"]
 position = Vector2(8, 8)
-texture = ExtResource("8_gjsj1")
+texture = ExtResource("7_2j6ud")
 
 [node name="Interactable" type="Node2D" parent="Target"]
-script = ExtResource("6_slxof")
+script = ExtResource("8_vwie8")
 
 [node name="FluidBar" type="ProgressBar" parent="Target"]
 offset_left = -16.0
@@ -500,21 +512,57 @@ show_percentage = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Target"]
 position = Vector2(8, -8)
-texture = ExtResource("9_evvec")
+texture = ExtResource("9_yu754")
 
-[node name="Interactables2" type="TileMapLayer" parent="." groups=["tilemaps"]]
-tile_map_data = PackedByteArray("AAD+/wUAAgAFAAgAAAD//wUAAgAGAAgAAAD9/wcAAgACAAIAAAD8/wcAAgABAAIAAAD+/wcAAgADAAIAAAD//wcAAgAEAAIAAAAAAAcAAgAFAAIAAAABAAcAAgAGAAIAAAACAAcAAgAHAAIAAAD+/wgAAgAAAAMAAAD//wgAAgABAAMAAAABAAgAAgADAAMAAAAAAAgAAgAJAAYAAAD8/wgAAgAIAAIAAAD9/wgAAgAJAAIAAAA=")
-tile_set = SubResource("TileSet_3orrr")
+[node name="Enemy2" type="Node2D" parent="."]
+position = Vector2(-16, -16)
 
-[node name="Enemy" parent="." groups=["tilemaps"] instance=ExtResource("4_c4nui")]
-position = Vector2(-48, 144)
+[node name="Sprite2D" type="Sprite2D" parent="Enemy2"]
+texture = ExtResource("10_rlt75")
+offset = Vector2(0, -16)
 
-[node name="CollisionShape2D" parent="Enemy/ViewArea" index="0"]
-position = Vector2(4, 11)
-shape = SubResource("RectangleShape2D_b4u4m")
+[node name="HitBoxComponent" parent="Enemy2" instance=ExtResource("6_tjmti")]
 
-[node name="EnemyAI" parent="Enemy" index="3" node_paths=PackedStringArray("tileMap")]
+[node name="ViewArea" type="Area2D" parent="Enemy2"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2/ViewArea"]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_3831i")
+debug_color = Color(0.949099, 0.146649, 0.438328, 0.42)
+
+[node name="EnemyAI" type="Node2D" parent="Enemy2" node_paths=PackedStringArray("tileMap", "area2d", "sprite", "baseNode")]
+script = ExtResource("11_22ggy")
 tileMap = NodePath("../../BG")
+area2d = NodePath("../ViewArea")
+sprite = NodePath("../Sprite2D")
+baseNode = NodePath("..")
+
+[node name="EnemyUI" type="Node2D" parent="Enemy2"]
+script = ExtResource("12_b1pii")
+
+[node name="EnemySuspicion" type="Node2D" parent="Enemy2" node_paths=PackedStringArray("area2d", "baseNode")]
+script = ExtResource("13_4185p")
+area2d = NodePath("../ViewArea")
+baseNode = NodePath("..")
+
+[node name="SusBar" type="ProgressBar" parent="Enemy2"]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = -19.0
+show_percentage = false
+
+[node name="StateLabel" type="Label" parent="Enemy2"]
+offset_left = -24.0
+offset_top = -40.0
+offset_right = 24.0
+offset_bottom = -25.0
+theme = ExtResource("3_56gp3")
+theme_override_font_sizes/font_size = 10
+text = "Aware"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SFXPlayer" type="AudioStreamPlayer2D" parent="."]
 volume_db = -10.591
@@ -522,14 +570,46 @@ attenuation = 2.07053
 bus = &"SFX"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("9_3q1rx")
+stream = ExtResource("11_qxckn")
 volume_db = -20.0
 autoplay = true
 attenuation = 2.07053
 bus = &"BGM"
 parameters/looping = true
 
+[node name="TutorialLabel" type="Label" parent="."]
+offset_left = 96.0
+offset_top = 104.0
+offset_right = 241.0
+offset_bottom = 131.0
+theme = ExtResource("3_56gp3")
+theme_override_font_sizes/font_size = 12
+text = "Press arrow keys to move
+Interact by moving up to object"
+
+[node name="TutorialLabel2" type="Label" parent="."]
+offset_left = 96.0
+offset_top = -24.0
+offset_right = 227.0
+offset_bottom = -1.0
+theme = ExtResource("3_56gp3")
+theme_override_font_sizes/font_size = 12
+text = "Switc mode and pour by pressing button"
+
+[node name="LabelTutorialLabel3" type="Label" parent="."]
+offset_left = -256.0
+offset_top = -32.0
+offset_right = -67.0
+offset_bottom = -5.0
+theme = ExtResource("3_56gp3")
+theme_override_font_sizes/font_size = 12
+text = "The suspicion bar is triggered 
+if you have poison and in range of sight"
+
 [connection signal="teamodechanged" from="Player/ActionController" to="CanvasLayer/VBoxContainer" method="_on_teamodechanged"]
+[connection signal="pressed" from="CanvasLayer/SkipButton" to="CanvasLayer/VBoxContainer" method="_on_skip_pressed"]
+[connection signal="npc_changebehavior" from="Enemy2/EnemyAI" to="Enemy2/EnemyUI" method="_on_enemy_state_changed"]
+[connection signal="npc_changebehavior" from="Enemy2/EnemyAI" to="Enemy2/EnemySuspicion" method="_on_enemy_state_changed"]
+[connection signal="suspicion_changed" from="Enemy2/EnemySuspicion" to="Enemy2/EnemyUI" method="_on_enemy_suspicion_changed"]
 
 [editable path="Player"]
-[editable path="Enemy"]

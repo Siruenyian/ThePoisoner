@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx2bsswuc3hv8"
-path="res://.godot/imported/Maling idle.png-3e295edbe90f30a570e0f2070d8e2b90.ctex"
+uid="uid://doifeu2xdmygp"
+path="res://.godot/imported/idnicator.png-c555c209e211c72b8edfe81bf019289c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Maling idle.png"
-dest_files=["res://.godot/imported/Maling idle.png-3e295edbe90f30a570e0f2070d8e2b90.ctex"]
+source_file="res://Assets/Sprites/idnicator.png"
+dest_files=["res://.godot/imported/idnicator.png-c555c209e211c72b8edfe81bf019289c.ctex"]
 
 [params]
 

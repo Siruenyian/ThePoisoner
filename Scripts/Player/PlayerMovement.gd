@@ -7,7 +7,7 @@ extends Node2D
 @export var raycast: RayCast2D 
 var isMoving: bool = false
 var targetPosition: Vector2
-
+@onready var tilemaps = get_tree().get_nodes_in_group("tilemaps") 
 func _process(delta):
 	handle_input()
 
@@ -29,7 +29,10 @@ func handle_input():
 		direction = Vector2.DOWN
 	if direction != Vector2.ZERO:
 		move(direction)
-	
+
+
+@onready var sfx_player = $"../../SFXPlayer"
+
 func move(direction:Vector2):
 	var currentTile:Vector2i=tileMap.local_to_map(global_position)
 	var targetTile:Vector2i=Vector2i(
@@ -37,7 +40,8 @@ func move(direction:Vector2):
 		currentTile.y+direction.y		
 	)
 	var tileData:TileData=tileMap.get_cell_tile_data(targetTile)
-	#if tileData.get_custom_data("walkable")==false:
+	print(is_tile_walkable(targetTile))
+	#if is_tile_walkable(targetTile)==false:
 		#return
 	raycast.target_position=direction*16
 	raycast.force_raycast_update()
@@ -54,6 +58,17 @@ func move(direction:Vector2):
 	tween.tween_property(character, "global_position",targetPosition , moveSpeed).set_trans(Tween.TRANS_SINE)
 	#await tween.finished
 	await tween.tween_callback(stopmoving)
+	AudioManagerThing.play_sfx("step",sfx_player)
 
 func stopmoving():
 	isMoving = false
+	
+func is_tile_walkable(global_position: Vector2) -> bool:
+	for layer:TileMapLayer in tilemaps:
+		if layer.get_cell_source_id(global_position) != null:  # There's a tile at this layer
+			print(layer.get_cell_source_id(global_position)," geetcellsourceid")
+			#var tile_data = layer.get_cell_tile_data(global_position)
+			#if tile_data and tile_data.get_custom_data("walkable"):  # Check a custom bool property
+			return true  
+	
+	return false  

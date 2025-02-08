@@ -10,13 +10,30 @@ var current_ap: int
 var turnDelay:float = 1.0
 var turnCount:int=0
 var playerturnCount:int=0
+var levelBehaviorPattern=[[0,0,0,0,0,0,0,0],[0,1,2,2,0,0,0,1]]
+var level:int=-1
+var istutPlayed:bool=false
 
-
+func getBehavior()->Array:
+	print(level)
+	print(levelBehaviorPattern[0])
+	if level==-1:
+		return levelBehaviorPattern[0]
+	return levelBehaviorPattern[level]
+	
 func _ready():
-	current_ap = max_ap  
-	start_turn()
-
+	pass
+	#current_ap = max_ap  
+	#start_turn()
+func is_tutorial_scene() -> bool:
+	return get_tree().current_scene.scene_file_path == "res://Scenes/Tutorial.tscn"
 func start_turn():
+	if playerturnCount>6:
+		if is_tutorial_scene():
+			end_tut("LOSE")
+			return
+		end_game("LOSE")
+		return
 	if current_turn == "Player":
 		playerturnCount+=1
 	print("Turn Started! It's", current_turn, "turn")
@@ -71,9 +88,45 @@ func switch_scene_async(target_scene: String) -> void:
 		print("Error loading scene:", target_scene)
 
 
+func start_tut():
+	current_ap = max_ap  
+	level=-1
+	current_turn = "Player"
+	start_turn()
+
+func end_tut(gameCondition):
+	restore_ap()
+	current_turn = "Player"
+	
+	#end_turn()
+	game_ended.emit(gameCondition)
+	await get_tree().create_timer(5).timeout  
+	turnCount=0
+	playerturnCount=0
+	get_tree().paused = false
+	switch_scene_async("res://Scenes/prototype_menu.tscn")
+	return
+
+func skip_tut():
+	restore_ap()
+	current_turn = "Player"
+	#game_ended.emit(gameCondition)
+	turnCount=0
+	playerturnCount=0
+	get_tree().paused = false
+	switch_scene("res://Scenes/Prototype.tscn")
+	start_game(1)
+	return
+	
+func start_game(lvl:int):
+	current_ap = max_ap  
+	level=lvl
+	current_turn = "Player"
+	start_turn()
+
 func end_game(gameCondition):
 	restore_ap()
-	#current_turn = "Player"
+	current_turn = "Player"
 	#end_turn()
 	game_ended.emit(gameCondition)
 	await get_tree().create_timer(5).timeout  

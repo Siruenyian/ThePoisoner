@@ -52,6 +52,9 @@ func update_suspicion():
 
 	if suspicion >= 100:
 		print("Suspicion Maxed! You going to jail ha")
+		if GameManagerThing.is_tutorial_scene():
+			GameManagerThing.end_tut("LOSE")
+			return
 		GameManagerThing.end_game("LOSE")
 
 
