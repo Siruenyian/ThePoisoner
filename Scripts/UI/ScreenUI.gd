@@ -4,31 +4,35 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 @onready var loseScreen:Control=$LoseScreen
 @onready var winScreen:Control=$WinScreen
-var game_over_shown = false 
+@onready var drawScreen:Control=$DrawScreen
 
+var stateArray=[]
 func _ready():
+	stateArray=[]
 	loseScreen.visible = false
 	winScreen.visible = false
-	game_over_shown = false 
+	drawScreen.visible = false
+	
 	GameManagerThing.game_ended.connect(show_game_over)
 
 
 func show_game_over(condition:String):
-	if game_over_shown:
-		return
-	game_over_shown = true 
-	match condition:
+	stateArray.append(condition)
+	var gameState=""
+	gameState=condition
+	if stateArray[0] || (stateArray[0]==stateArray[1]):
+		gameState="DRAW"
+	match gameState:
 		"LOSE":
 			loseScreen.visible = true
 			get_tree().paused = true
 		"WIN":
 			winScreen.visible = true
 			get_tree().paused = true
-
-	
-	
-	
-	
+		"DRAW":
+			drawScreen.visible = true
+			get_tree().paused = true
+			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
