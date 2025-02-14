@@ -20,6 +20,8 @@ func _ready():
 	turnLabel.text="Turn: "+GameManagerThing.current_turn
 	ap_bar.value=float(GameManagerThing.current_ap) / GameManagerThing.max_ap * 100 
 	turncountLabel.text="Phase: %d/7" % GameManagerThing.playerturnCount
+	#modeLabel.text="Mode: %s"%GameManagerThing
+	
 	#GameManagerThing.skip_tut.connect(_on_skip_pressed)
 	
 	
@@ -50,7 +52,7 @@ func show_actions():
 
 func hide_actions():
 	visible = false 
-var lastswitchTurn:int=GameManagerThing.playerturnCount+1
+var lastswitchTurn:int=GameManagerThing.playerturnCount
 func _on_switch_mode_pressed():
 	print(GameManagerThing.playerturnCount)
 	print(lastswitchTurn)

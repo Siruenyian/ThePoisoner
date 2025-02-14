@@ -20,8 +20,10 @@ func show_game_over(condition:String):
 	stateArray.append(condition)
 	var gameState=""
 	gameState=condition
-	if stateArray[0] || (stateArray[0]==stateArray[1]):
-		gameState="DRAW"
+	print("statearray nows",stateArray)
+	if stateArray.size()>1:
+		if (stateArray[0]==stateArray[1]):
+			gameState="DRAW"
 	match gameState:
 		"LOSE":
 			loseScreen.visible = true

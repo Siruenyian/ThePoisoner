@@ -181,21 +181,6 @@ size = Vector2(32, 90)
 tile_map_data = PackedByteArray("AAD+/wAAAgABAAEAAAD+//7/AgADAAAAAAD+////AgABAAEAAAD+/wEAAgABAAEAAAD+/wIAAgABAAEAAAD///3/AgABAAAAAAD///7/AgAGAAAAAAD/////AgAFAAEAAAD//wAAAgAHAAEAAAD//wEAAgAHAAEAAAD//wIAAgAHAAEAAAAAAP3/AgABAAAAAAAAAP7/AgAHAAAAAAAAAP//AgAEAAEAAAAAAAAAAgAHAAEAAAAAAAEAAgAHAAEAAAAAAAIAAgAHAAEAAAABAP7/AgAIAAAAAAABAP//AgAFAAEAAAACAP7/AgAJAAAAAAACAP3/AgACAAAAAAABAP3/AgABAAAAAAACAP//AgAAAAIAAAACAAAAAgAJAAAAAAACAAEAAgAAAAIAAAACAAIAAgAJAAAAAAACAAMAAgAJAAAAAAACAAQAAgAAAAIAAAACAAUAAgAJAAAAAAABAAAAAgAHAAEAAAABAAEAAgAHAAEAAAABAAIAAgAHAAEAAAABAAMAAgAAAAEAAAAAAAMAAgAAAAEAAAD+/wMAAgABAAEAAAD//wMAAgAAAAEAAAD+/wQAAgABAAEAAAAAAAQAAgAGAAEAAAABAAQAAgAGAAEAAAD//wQAAgAGAAEAAAD+/wUAAgABAAEAAAD//wUAAgAGAAEAAAAAAAUAAgAGAAEAAAABAAUAAgAGAAEAAAD+//3/AgAAAAAAAAA=")
 tile_set = SubResource("TileSet_3orrr")
 
-[node name="Player" parent="." instance=ExtResource("2_j2jsx")]
-position = Vector2(16, 112)
-
-[node name="PlayerController" parent="Player" index="2" node_paths=PackedStringArray("tileMap")]
-tileMap = NodePath("../../BG")
-
-[node name="ActionController" parent="Player" index="4" node_paths=PackedStringArray("actionUI")]
-actionUI = NodePath("../../CanvasLayer/VBoxContainer")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(2, 2)
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="SkipButton" type="Button" parent="CanvasLayer"]
@@ -567,6 +552,21 @@ show_percentage = false
 position = Vector2(8, -8)
 texture = ExtResource("9_yu754")
 
+[node name="Player" parent="." instance=ExtResource("2_j2jsx")]
+position = Vector2(16, 112)
+
+[node name="PlayerController" parent="Player" index="2" node_paths=PackedStringArray("tileMap")]
+tileMap = NodePath("../../BG")
+
+[node name="ActionController" parent="Player" index="4" node_paths=PackedStringArray("actionUI")]
+actionUI = NodePath("../../CanvasLayer/VBoxContainer")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
 [node name="Enemy2" type="Node2D" parent="."]
 position = Vector2(-16, -16)
 
@@ -659,8 +659,8 @@ theme_override_font_sizes/font_size = 12
 text = "The suspicion bar is triggered 
 if you have poison and in range of sight"
 
-[connection signal="teamodechanged" from="Player/ActionController" to="CanvasLayer/VBoxContainer" method="_on_teamodechanged"]
 [connection signal="pressed" from="CanvasLayer/SkipButton" to="CanvasLayer/VBoxContainer" method="_on_skip_pressed"]
+[connection signal="teamodechanged" from="Player/ActionController" to="CanvasLayer/VBoxContainer" method="_on_teamodechanged"]
 [connection signal="npc_changebehavior" from="Enemy2/EnemyAI" to="Enemy2/EnemyUI" method="_on_enemy_state_changed"]
 [connection signal="npc_changebehavior" from="Enemy2/EnemyAI" to="Enemy2/EnemySuspicion" method="_on_enemy_state_changed"]
 [connection signal="suspicion_changed" from="Enemy2/EnemySuspicion" to="Enemy2/EnemyUI" method="_on_enemy_suspicion_changed"]

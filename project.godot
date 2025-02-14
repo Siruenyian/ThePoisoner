@@ -23,6 +23,10 @@ config/icon="res://Assets/Sprites/logo.png"
 GameManagerThing="*res://Scripts/Manager/GameManagerThing.gd"
 AudioManagerThing="*res://Scripts/Manager/AudioManagerThing.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="Poisoner"
